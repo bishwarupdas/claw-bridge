@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node (chrome-devtools-mcp runs via npx; no local install needed)
+node_modules/
+npm-debug.log*
+
+# Build artifacts
+BUILD_VERIFICATION.md
