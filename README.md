@@ -24,25 +24,29 @@ That's it. No Python, no setup scripts, no auth tokens.
 
 ---
 
-## The five slash commands
+## Commands
+
+Plugin commands are namespaced as `/claw-bridge:<command>`:
 
 | Command | What it does |
 |---------|-------------|
-| `/claw-plan <task>` | Runs UNDERSTAND + DECOMPOSE for a task and waits for your approval before executing anything |
-| `/claw-verify [commit]` | Runs all 6 VVP checks via chrome-devtools-mcp; defaults to current working tree |
-| `/claw-review <commit>` | Audits a commit diff for scope creep (FM3), duplication (FM2), and missing verification evidence (FM4) |
-| `/claw-status` | Shows plugin version, active skills, and whether chrome-devtools-mcp is reachable |
-| `/claw-failure-check` | Self-audit: Claude answers honestly whether it committed any of the 6 known failure modes |
+| `/claw-bridge:claw-plan <task>` | Runs UNDERSTAND + DECOMPOSE for a task and waits for your approval before executing anything |
+| `/claw-bridge:claw-verify [commit]` | Runs all 6 VVP checks via chrome-devtools-mcp; defaults to current working tree |
+| `/claw-bridge:claw-review <commit>` | Audits a commit diff for scope creep (FM3), duplication (FM2), and missing verification evidence (FM4) |
+| `/claw-bridge:claw-status` | Shows plugin version, active skills, and whether chrome-devtools-mcp is reachable |
+| `/claw-bridge:claw-failure-check` | Self-audit: Claude answers honestly whether it committed any of the 6 known failure modes |
 
 ---
 
-## The four skills
+## Skills
+
+Skills activate automatically when relevant — you don't invoke them directly. Claude Code loads them based on their `description` field.
 
 **`claw-bridge-discipline`** — Activates on any multi-file change, new feature, UI work, or non-trivial task. Forces Claude through UNDERSTAND (what do the files actually say?) → DECOMPOSE (atomic steps, confirmed before writing) → SOLVE (one commit at a time) → VERIFY (evidence required, not claims). Does not apply to typo fixes or pure doc edits.
 
 **`claw-bridge-vvp`** — Visual Verification Protocol. Six concrete checks run via chrome-devtools-mcp: content visibility (screenshot + DOM snapshot), human readability (computed styles, WCAG AA), state switching (3 states tested), viewport bounds (4 widths: 360/768/1024/1440), content fit (scroll dimensions), and cross-route regression. All six must pass before a UI task is declared complete.
 
-**`claw-bridge-failure-modes`** — A catalog of six failure patterns with detection methods: FM1 screenshot hallucination, FM2 architectural violation, FM3 scope creep, FM4 fake verification, FM5 skipped teardown, FM6 regression ignorance. Used by `/claw-review` and `/claw-failure-check`.
+**`claw-bridge-failure-modes`** — A catalog of six failure patterns with detection methods: FM1 screenshot hallucination, FM2 architectural violation, FM3 scope creep, FM4 fake verification, FM5 skipped teardown, FM6 regression ignorance. Used by `/claw-bridge:claw-review` and `/claw-bridge:claw-failure-check`.
 
 **`claw-bridge-repair`** — The fix-verify loop for when a VVP check fails. Enforces: ISOLATE the specific failure (quote tool output, don't paraphrase) → HYPOTHESIZE minimal cause (grep to confirm, state before coding) → FIX narrowly (no refactoring mixed in) → RE-VERIFY the specific check → REGRESS (full VVP) → CONTINUE. Based on PDCA (Deming) and Tidy First (Kent Beck, 2023).
 
@@ -56,12 +60,13 @@ claw-bridge makes Claude expensive to lie to itself. UNDERSTAND means reading fi
 
 ---
 
-## What it doesn't do (v0.1)
+## Limitations (v0.1)
 
 - No custom Python MCP server — chrome-devtools-mcp covers the verification surface
-- No hooks — slash commands + skills cover the user-invoked path (v0.2 candidate)
+- No hooks — commands + skills cover the user-invoked path (hooks are a v0.2 candidate)
 - No Cloudflare tunnel, no auth — local plugin, no network surface
 - No orchestration — discipline is built into Claude Code itself via the skills
+- Commands are namespaced (`/claw-bridge:claw-plan`, not `/claw-plan`) — standard behavior for all Claude Code plugins
 
 ---
 
