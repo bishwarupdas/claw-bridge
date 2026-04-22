@@ -9,7 +9,10 @@
   "plugins": [
     {
       "name": "claw-bridge",
-      "source": ".",
+      "source": {
+        "source": "github",
+        "repo": "bishwarupdas/claw-bridge"
+      },
       "description": "Enforces UNDERSTAND/DECOMPOSE/SOLVE/VERIFY discipline and Visual Verification Protocol via chrome-devtools-mcp.",
       "version": "0.1.0",
       "license": "MIT"
