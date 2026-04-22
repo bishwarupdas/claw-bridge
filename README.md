@@ -9,12 +9,10 @@ claw-bridge is a Claude Code plugin that enforces verification discipline. It ma
 ## Install
 
 ```
-/plugin marketplace add <OWNER>/claw-bridge
+/plugin marketplace add bishwarupdas/claw-bridge
 /plugin install claw-bridge@claw-bridge
 /reload-plugins
 ```
-
-Replace `<OWNER>` with the GitHub username hosting this repo.
 
 ## Prerequisites
 
