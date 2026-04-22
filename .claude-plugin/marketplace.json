@@ -1,0 +1,18 @@
+{
+  "name": "claw-bridge",
+  "owner": {
+    "name": "claw-bridge contributors"
+  },
+  "metadata": {
+    "description": "Discipline enforcement + visual verification plugin for Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "claw-bridge",
+      "source": ".",
+      "description": "Enforces UNDERSTAND/DECOMPOSE/SOLVE/VERIFY discipline and Visual Verification Protocol via chrome-devtools-mcp.",
+      "version": "0.1.0",
+      "license": "MIT"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "claw-bridge",
+  "version": "0.1.0",
+  "description": "Discipline enforcement + visual verification for Claude Code. Built-in 4-step protocol, pre-wired chrome-devtools-mcp for verification.",
+  "author": {
+    "name": "claw-bridge contributors",
+    "url": "https://github.com/claw-bridge/claw-bridge"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/claw-bridge/claw-bridge",
+  "repository": "https://github.com/claw-bridge/claw-bridge",
+  "keywords": ["verification", "discipline", "karpathy", "vvp", "visual-verification"],
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"]
+    }
+  }
+}
